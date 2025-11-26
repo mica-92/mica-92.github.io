@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -38,7 +37,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
         }
 
@@ -54,10 +53,11 @@
         }
 
         .container {
-            width: 400px;
+            max-width: 400px;
+            width: 90%;
             margin: 0 auto;
             border: 6px solid var(--purple);
-            padding: 30px;
+            padding: 20px;
             background-color: var(--green);
             box-shadow: 12px 12px 0 #ccffd280;
             position: relative;
@@ -126,9 +126,9 @@
 }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             text-transform: uppercase;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             border: 4px solid #6027a980;
             padding: 15px;
             background-color: var(--purple);
@@ -172,12 +172,12 @@
         .btn {
             display: block;
             width: 90%;
-            margin: 20px 0;
-            padding: 18px;
+            margin: 15px auto;
+            padding: 15px;
             background-color: #fff0f7;
             color: var(--purple);
             border: 4px solid var(--purple);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
             text-transform: uppercase;
             cursor: pointer;
@@ -222,7 +222,7 @@
         }
         
         .footer {
-            margin-top: 50px;
+            margin-top: 40px;
             font-size: 0.9rem;
             border-top: 2px solid var(--pink);
             padding-top: 15px;
@@ -262,6 +262,62 @@
         @keyframes sparkle {
             0%, 100% { opacity: 0.3; }
             50% { opacity: 1; }
+        }
+
+        /* Media queries para responsividad */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+                padding: 12px;
+                margin-bottom: 25px;
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .btn {
+                font-size: 1rem;
+                padding: 12px;
+                margin: 12px auto;
+            }
+            
+            .footer {
+                margin-top: 30px;
+                font-size: 0.8rem;
+            }
+            
+            .decoration {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 320px) {
+            h1 {
+                font-size: 1.4rem;
+            }
+            
+            .btn {
+                font-size: 0.9rem;
+                padding: 10px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 450px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
         }
     </style>
 </head>
