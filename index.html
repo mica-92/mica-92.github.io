@@ -4,17 +4,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mica · dev</title>
+    <title>mica · dev</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 640'><path d='M9.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L146.7 256 9.4 118.6zM224 384l256 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-256 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z'/></svg>">
     <style>
         :root {
-            --purple: #6027a9;
-            --green: #ccffd2;
-            --pink: #ff69b4;
-            font-family: 'Inconsolata', monospace;
+            --bg: #0000aa;
+            --bg2: #000080;
+            --text: #00ffff;
+            --text2: #ffffff;
+            --link: #ffff00;
+            --link-hover: #ff00ff;
+            --border: #008080;
+            --shadow: #00ffff80;
+            --pink: #ff00ff;
+            font-family: 'VT323', 'Courier New', monospace;
         }
 
         * {
@@ -26,8 +32,8 @@
         body {
             margin: 0;
             padding: 20px;
-            background-color: var(--purple);
-            color: var(--green);
+            background-color: var(--bg);
+            color: var(--text);
             text-align: center;
             min-height: 100vh;
             display: flex;
@@ -35,8 +41,10 @@
             justify-content: center;
             overflow-x: hidden;
             position: relative;
+            cursor: default;
         }
 
+        /* Fondo Matrix más sutil */
         #matrix-bg {
             position: fixed;
             top: 0;
@@ -44,41 +52,45 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.4;
+            opacity: 0.15;
         }
 
         .container {
-            max-width: 300px;
-            width: 80%;
+            max-width: 580px;
+            width: 92%;
             margin: 0 auto;
-            border: 6px solid var(--purple);
-            padding: 20px;
-            background-color: var(--green);
-            box-shadow: 12px 12px 0 #ccffd280;
+            border: 4px solid var(--border);
+            padding: 28px 30px 24px;
+            background-color: var(--bg);
+            box-shadow: 8px 8px 0 var(--shadow), inset 0 0 60px rgba(0,255,255,0.03);
             position: relative;
+            image-rendering: pixelated;
         }
-        
+
+        /* Borde exterior estilo old web */
         .container::before {
             content: "";
             position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            border: 3px solid var(--green);
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            border: 2px solid var(--border);
             z-index: -1;
+            opacity: 0.3;
         }
 
+        /* Línea de escaneo */
         .scan-line {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 3px;
+            height: 2px;
             background: linear-gradient(90deg, transparent, var(--pink), transparent);
-            animation: scan 4s linear infinite;
+            animation: scan 6s linear infinite;
             z-index: 2;
-            opacity: 0.7;
+            opacity: 0.3;
         }
 
         @keyframes scan {
@@ -86,76 +98,26 @@
             100% { top: 100%; }
         }
 
-        .glitch {
+        /* ─── HEADER ─── */
+        .header {
+            border-bottom: 3px double var(--border);
+            padding-bottom: 14px;
+            margin-bottom: 18px;
             position: relative;
-            display: inline-block;
         }
 
-        .glitch::before,
-        .glitch::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.8;
-        }
-
-        .glitch::before {
-            left: 1px;
-            text-shadow: -1px 0 var(--pink);
-            animation: glitch-anim 2s infinite linear alternate-reverse;
-            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
-        }
-
-        .glitch::after {
-            left: -1px;
-            text-shadow: 1px 0 var(--purple);
-            animation: glitch-anim2 4s infinite linear alternate-reverse;
-            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
-        }
-
-        @keyframes glitch-anim {
-            0% { transform: translate(0); }
-            95% { transform: translate(0); }
-            96% { transform: translate(-1px, 1px); }
-            97% { transform: translate(-1px, -1px); }
-            98% { transform: translate(1px, 1px); }
-            99% { transform: translate(1px, -1px); }
-            100% { transform: translate(0); }
-        }
-
-        @keyframes glitch-anim2 {
-            0% { transform: translate(0); }
-            90% { transform: translate(0); }
-            91% { transform: translate(1px, 1px); }
-            92% { transform: translate(1px, -1px); }
-            93% { transform: translate(-1px, 1px); }
-            94% { transform: translate(-1px, -1px); }
-            100% { transform: translate(0); }
-        }
-
-        h1 {
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            margin-bottom: 25px;
-            border: 4px solid #6027a980;
-            padding: 12px;
-            background-color: var(--purple);
-            position: relative;
-            color: var(--green);
+        .header-top {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            white-space: nowrap;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
-        .blinking-cursor {
-            animation: blink 1s infinite;
+        .header-top .prompt {
             color: var(--pink);
-            font-weight: bold;
+            font-size: 1.8rem;
+            animation: blink 1s infinite;
         }
 
         @keyframes blink {
@@ -163,47 +125,91 @@
             51%, 100% { opacity: 0; }
         }
 
-        .btn {
-            display: block;
-            width: 90%;
-            margin: 12px auto;
-            padding: 12px;
-            background-color: #fff0f7;
-            color: var(--purple);
-            border: 4px solid var(--purple);
-            font-size: 0.95rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-            font-family: 'Inconsolata', monospace;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 400;
+            color: var(--text);
+            text-transform: lowercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px var(--shadow), 0 0 60px var(--shadow);
+            display: inline-block;
+            font-family: 'VT323', monospace;
         }
 
-        .btn::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 105, 180, 0.2), transparent);
-            transition: left 0.5s;
+        .header-sub {
+            font-size: 1.1rem;
+            color: var(--text);
+            opacity: 0.7;
+            margin-top: 6px;
+            letter-spacing: 1px;
+            font-family: 'VT323', monospace;
+            border-top: 1px dotted var(--border);
+            padding-top: 10px;
+        }
+
+        .header-sub .cursor-blink {
+            display: inline-block;
+            width: 10px;
+            height: 18px;
+            background: var(--text);
+            animation: blink 1s infinite;
+            vertical-align: text-bottom;
+            margin-left: 2px;
+        }
+
+        /* ─── BOTONES ─── */
+        .btn {
+            display: block;
+            width: 94%;
+            margin: 10px auto;
+            padding: 10px 16px;
+            background-color: var(--bg);
+            color: var(--text);
+            border: 2px solid var(--border);
+            font-size: 1.15rem;
+            font-weight: 400;
+            text-transform: lowercase;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-family: 'VT323', monospace;
+            text-align: left;
+            letter-spacing: 1px;
+            position: relative;
+            image-rendering: pixelated;
+        }
+
+        .btn .icon {
+            display: inline-block;
+            width: 24px;
+            color: var(--pink);
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        .btn .lock-icon {
+            color: var(--pink);
+            font-size: 0.8rem;
+            margin-left: 8px;
+            opacity: 0.8;
+        }
+
+        .btn .arrow {
+            float: right;
+            color: var(--border);
+            transition: transform 0.2s;
         }
 
         .btn:hover {
-            background-color: var(--purple);
-            color: #fff0f7;
-            transform: translate(5px, 5px);
-            box-shadow: -8px -8px 0 var(--pink);
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            background-color: var(--bg2);
+            border-color: var(--text);
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 var(--shadow);
         }
 
-        .btn:hover::before {
-            left: 100%;
+        .btn:hover .arrow {
+            transform: translateX(4px);
+            color: var(--pink);
         }
 
         .btn:active {
@@ -211,57 +217,58 @@
             box-shadow: none;
         }
 
-        .btn i {
-            margin-right: 8px;
-            color: var(--pink);
-        }
-
-        .btn .lock-icon {
-            color: var(--pink);
-            font-size: 0.7rem;
-            margin-left: 6px;
-        }
-
+        /* ─── FOOTER ─── */
         .footer {
-            margin-top: 25px;
-            font-size: 0.8rem;
-            border-top: 2px solid var(--pink);
-            padding-top: 12px;
-            color: var(--purple);
-            position: relative;
+            margin-top: 20px;
+            padding-top: 14px;
+            border-top: 2px solid var(--border);
+            font-size: 0.95rem;
+            color: var(--text);
+            opacity: 0.6;
+            letter-spacing: 1px;
+            font-family: 'VT323', monospace;
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
         }
 
-        .footer::before {
-            content: ">";
-            margin-right: 5px;
+        .footer span {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .footer .dot {
             color: var(--pink);
-            animation: blink 1s infinite;
         }
 
+        /* ─── DECORACIONES ─── */
         .decoration {
             position: absolute;
-            font-size: 1.2rem;
-            color: var(--pink);
-            opacity: 0.7;
+            font-size: 1.4rem;
+            color: var(--border);
+            opacity: 0.3;
             z-index: 1;
+            pointer-events: none;
+            user-select: none;
         }
 
-        .dec-1 { top: 8px; left: 8px; }
-        .dec-2 { top: 8px; right: 8px; }
-        .dec-3 { bottom: 8px; left: 8px; }
-        .dec-4 { bottom: 8px; right: 8px; }
+        .dec-1 { top: 6px; left: 8px; }
+        .dec-2 { top: 6px; right: 8px; }
+        .dec-3 { bottom: 6px; left: 8px; }
+        .dec-4 { bottom: 6px; right: 8px; }
 
         .decoration:nth-child(odd) {
             animation: sparkle 3s infinite;
         }
-
         .decoration:nth-child(even) {
             animation: sparkle 4s infinite 1s;
         }
 
         @keyframes sparkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
+            0%, 100% { opacity: 0.15; }
+            50% { opacity: 0.6; }
         }
 
         /* ─── MODAL ─── */
@@ -269,12 +276,13 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(16, 15, 15, 0.92);
+            background: rgba(0,0,170,0.92);
             z-index: 1000;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(2px);
+            border: 4px solid var(--border);
         }
 
         .modal-overlay.open {
@@ -282,81 +290,103 @@
         }
 
         .modal {
-            background: var(--green);
-            border: 6px solid var(--purple);
+            background: var(--bg);
+            border: 4px solid var(--border);
             max-width: 580px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
-            padding: 30px;
+            padding: 28px 30px;
             position: relative;
-            box-shadow: 12px 12px 0 var(--purple);
+            box-shadow: 8px 8px 0 var(--shadow);
             text-align: left;
+            font-family: 'VT323', monospace;
         }
 
         .modal .close-btn {
             position: absolute;
-            top: 12px;
-            right: 16px;
+            top: 8px;
+            right: 14px;
             background: none;
             border: none;
-            font-size: 1.8rem;
-            color: var(--purple);
+            font-size: 1.6rem;
+            color: var(--border);
             cursor: pointer;
-            font-family: 'Inconsolata', monospace;
-            transition: transform 0.2s;
+            font-family: 'VT323', monospace;
+            transition: color 0.2s, transform 0.2s;
         }
 
         .modal .close-btn:hover {
+            color: var(--pink);
             transform: rotate(90deg);
         }
 
         .modal .modal-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--purple);
-            margin-bottom: 6px;
-            font-family: 'Inconsolata', monospace;
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--text);
+            letter-spacing: 2px;
+            margin-bottom: 2px;
+            font-family: 'VT323', monospace;
+            text-shadow: 0 0 20px var(--shadow);
         }
 
-        .modal .modal-sub {
-            font-size: 0.85rem;
-            color: var(--purple);
-            opacity: 0.7;
-            margin-bottom: 16px;
-            font-family: 'Inconsolata', monospace;
+        .modal .modal-id {
+            font-size: 0.9rem;
+            color: var(--border);
+            margin-bottom: 14px;
+            letter-spacing: 1px;
+            font-family: 'VT323', monospace;
+        }
+
+        .modal .modal-id::before {
+            content: "# ";
+            color: var(--pink);
         }
 
         .modal .modal-desc {
-            font-size: 0.95rem;
-            line-height: 1.7;
-            color: var(--purple);
-            font-family: 'Inconsolata', monospace;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text);
+            opacity: 0.85;
+            font-family: 'VT323', monospace;
             margin-bottom: 20px;
-            padding: 16px;
-            background: rgba(96, 39, 169, 0.06);
+            padding: 14px 16px;
+            background: rgba(0,255,255,0.04);
             border-left: 3px solid var(--pink);
         }
 
         .modal .modal-link {
             display: inline-block;
             padding: 10px 24px;
-            background-color: var(--purple);
-            color: var(--green);
-            border: 3px solid var(--purple);
+            background-color: var(--bg);
+            color: var(--text);
+            border: 2px solid var(--border);
             text-decoration: none;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            transition: all 0.2s;
-            font-family: 'Inconsolata', monospace;
+            font-size: 1.1rem;
+            text-transform: lowercase;
+            transition: all 0.15s;
+            font-family: 'VT323', monospace;
+            letter-spacing: 1px;
         }
 
         .modal .modal-link:hover {
-            background-color: var(--green);
-            color: var(--purple);
-            transform: translate(-3px, -3px);
-            box-shadow: 6px 6px 0 var(--purple);
+            background-color: var(--bg2);
+            border-color: var(--text);
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 var(--shadow);
+        }
+
+        .modal .modal-tag {
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 2px 14px;
+            background: var(--bg2);
+            color: var(--text);
+            border: 1px solid var(--border);
+            letter-spacing: 1px;
+            margin-top: 6px;
+            font-family: 'VT323', monospace;
         }
 
         .modal .modal-pass {
@@ -369,80 +399,119 @@
 
         .modal .modal-pass input {
             flex: 1;
-            padding: 10px 14px;
-            border: 3px solid var(--purple);
-            background: white;
-            font-family: 'Inconsolata', monospace;
-            font-size: 0.95rem;
-            color: var(--purple);
+            padding: 8px 14px;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
             outline: none;
             min-width: 160px;
+            letter-spacing: 1px;
         }
 
         .modal .modal-pass input:focus {
             border-color: var(--pink);
+            box-shadow: 0 0 20px var(--shadow);
         }
 
         .modal .modal-pass .pass-btn {
-            padding: 10px 20px;
-            background: var(--purple);
-            color: var(--green);
-            border: 3px solid var(--purple);
-            font-weight: 700;
+            padding: 8px 20px;
+            background: var(--bg);
+            color: var(--text);
+            border: 2px solid var(--border);
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
             cursor: pointer;
-            font-family: 'Inconsolata', monospace;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            transition: all 0.2s;
+            transition: all 0.15s;
+            letter-spacing: 1px;
         }
 
         .modal .modal-pass .pass-btn:hover {
-            background: var(--green);
-            color: var(--purple);
+            background: var(--bg2);
+            border-color: var(--text);
         }
 
         .modal .modal-pass .pass-error {
-            color: #d14d41;
-            font-size: 0.85rem;
-            font-weight: 700;
+            color: #ff4444;
+            font-size: 1rem;
             width: 100%;
             display: none;
+            font-family: 'VT323', monospace;
+            letter-spacing: 1px;
         }
 
         .modal .modal-pass .pass-error.show {
             display: block;
         }
 
-        .modal .modal-tag {
-            display: inline-block;
-            font-size: 0.7rem;
-            padding: 2px 12px;
-            border-radius: 0;
-            background: var(--pink);
-            color: var(--purple);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 6px;
+        .modal .modal-actions {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
-        @media (max-width: 480px) {
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 16px;
+                max-width: 100%;
+            }
+
+            h1 {
+                font-size: 2rem;
+                letter-spacing: 2px;
+            }
+
+            .header-sub {
+                font-size: 1rem;
+            }
+
+            .btn {
+                font-size: 1.05rem;
+                padding: 8px 14px;
+                width: 96%;
+            }
+
+            .modal {
+                padding: 20px 16px;
+            }
+
+            .modal .modal-title {
+                font-size: 1.6rem;
+            }
+
+            .modal .modal-desc {
+                font-size: 1rem;
+                padding: 10px 12px;
+            }
+
+            .footer {
+                font-size: 0.85rem;
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .decoration {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 400px) {
             body { padding: 10px; }
-            .container { width: 300px; padding: 15px; }
-            h1 { font-size: 1.4rem; padding: 10px; }
-            .btn { font-size: 0.9rem; padding: 10px; }
-            .footer { font-size: 0.75rem; }
-            .decoration { font-size: 1rem; }
-            .modal { padding: 20px; margin: 10px; }
-            .modal .modal-title { font-size: 1.3rem; }
-            .modal .modal-pass input { min-width: 120px; font-size: 0.85rem; }
+            .container { padding: 14px 12px; }
+            h1 { font-size: 1.6rem; }
+            .btn { font-size: 0.95rem; padding: 7px 12px; }
+            .header-top .prompt { font-size: 1.4rem; }
+            .modal .modal-title { font-size: 1.4rem; }
         }
 
-        @media (max-width: 320px) {
-            .container { width: 280px; padding: 12px; }
-            h1 { font-size: 1.3rem; }
-            .btn { font-size: 0.85rem; padding: 8px; }
-        }
+        /* Scrollbar estilo old */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border: 1px solid var(--bg); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text); }
     </style>
 </head>
 <body>
@@ -450,21 +519,31 @@
     
     <div class="container">
         <div class="scan-line"></div>
-        <div class="decoration dec-1">✦</div>
-        <div class="decoration dec-2">✦</div>
-        <div class="decoration dec-3">✦</div>
-        <div class="decoration dec-4">✦</div>
+        <div class="decoration dec-1">◈</div>
+        <div class="decoration dec-2">◈</div>
+        <div class="decoration dec-3">◈</div>
+        <div class="decoration dec-4">◈</div>
         
-        <h1>
-            <i class="fa-solid fa-terminal"></i> 
-            <span class="glitch" data-text="mica·dev">mica·dev</span>
-            <span class="blinking-cursor">|</span>
-        </h1>
+        <!-- HEADER -->
+        <div class="header">
+            <div class="header-top">
+                <span class="prompt">></span>
+                <h1>mica·dev</h1>
+            </div>
+            <div class="header-sub">
+                bienvenido a mi archivo de códigos personales, herramientas y experimentos
+                <span class="cursor-blink"></span>
+            </div>
+        </div>
         
+        <!-- BOTONES -->
         <div id="buttons-container"></div>
         
+        <!-- FOOTER -->
         <div class="footer">
-            Emeritus Student of Ms. Frizzle's Class & UPenn.
+            <span><span class="dot">✦</span> emergente</span>
+            <span><span class="dot">✦</span> autodidacta</span>
+            <span><span class="dot">✦</span> 2025</span>
         </div>
     </div>
 
@@ -472,13 +551,13 @@
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
             <button class="close-btn" onclick="closeModal()">✕</button>
-            <div class="modal-title" id="modalTitle">Proyecto</div>
-            <div class="modal-sub" id="modalSub"></div>
+            <div class="modal-title" id="modalTitle">proyecto</div>
+            <div class="modal-id" id="modalId"></div>
             <div class="modal-desc" id="modalDesc"></div>
             <div id="modalActions"></div>
             <div id="modalLock" style="display:none;" class="modal-pass">
                 <input type="password" id="passInput" placeholder="clave..." onkeydown="if(event.key==='Enter') verifyPass()">
-                <button class="pass-btn" onclick="verifyPass()">entrar</button>
+                <button class="pass-btn" onclick="verifyPass()">acceder</button>
                 <span class="pass-error" id="passError">✕ clave incorrecta</span>
             </div>
         </div>
@@ -486,51 +565,58 @@
 
     <script>
         // ═══════════════════════════════════════════════════════════
-        // DATOS — Edita este JSON para agregar/quitar proyectos
+        // DATOS
         // ═══════════════════════════════════════════════════════════
 
         const PROJECTS = [
             {
                 "id": "navanga",
                 "name": "Navāṅga",
-                "description": "Exploración de la geometría sagrada y los patrones numéricos en el arte y la arquitectura. Una herramienta interactiva para visualizar formas y proporciones.",
+                "description": "exploración de geometría sagrada y patrones numéricos en el arte. herramienta interactiva para visualizar formas y proporciones.",
                 "link": "https://mica-92.github.io/navanga/",
                 "pass": null
             },
             {
                 "id": "cv",
-                "name": "Curriculum Vitae",
-                "description": "Mi trayectoria profesional y académica. Un CV interactivo con diseño inspirado en terminales y sistemas antiguos.",
+                "name": "curriculum vitae",
+                "description": "mi trayectoria profesional y académica en formato interactivo con diseño inspirado en terminales y sistemas antiguos.",
                 "link": "https://mica-92.github.io/mninni/",
                 "pass": null
             },
             {
                 "id": "summation",
-                "name": "In Summation",
-                "description": "Recopilación de escritos, reflexiones y apuntes sobre tecnología, filosofía y cultura digital. Un archivo personal.",
+                "name": "in summation",
+                "description": "archivo personal de escritos, reflexiones y apuntes sobre tecnología, filosofía y cultura digital.",
                 "link": "https://mica-92.github.io/in-summation/",
                 "pass": null
             },
             {
                 "id": "usna",
-                "name": "Usna",
-                "description": "Proyecto en desarrollo. Un sistema de gestión de conocimiento para equipos distribuidos.",
+                "name": "usna",
+                "description": "sistema de gestión de conocimiento para equipos distribuidos. en desarrollo.",
                 "link": "https://mica-92.github.io/anthology_notes/",
                 "pass": null
             },
             {
                 "id": "usna-yms",
-                "name": "Usna YMS",
-                "description": "Extensión de Usna enfocada en la gestión de flujos de trabajo y seguimiento de tareas.",
+                "name": "usna yms",
+                "description": "extensión de usna enfocada en gestión de flujos de trabajo y seguimiento de tareas.",
                 "link": "https://mica-92.github.io/anthology_notes/",
                 "pass": null
             },
             {
                 "id": "jobtracker",
                 "name": "JOBTracker",
-                "description": "Sistema de control horario para equipos móviles en retail. Herramienta local que complementa sistemas corporativos, permitiendo detectar anomalías, calcular tiempos de traslado y visualizar la jornada completa de repositores en múltiples ubicaciones.",
+                "description": "sistema de control horario para equipos móviles en retail. detecta anomalías, calcula tiempos de traslado y visualiza jornadas completas de repositores en múltiples ubicaciones.",
                 "link": "https://mica-92.github.io/JOBTracker/",
                 "pass": "jobtracker2024"
+            },
+            {
+                "id": "otro-proyecto",
+                "name": "próximo proyecto",
+                "description": "en construcción. próximamente.",
+                "link": "#",
+                "pass": null
             }
         ];
 
@@ -551,7 +637,11 @@
                 const hasPass = p.pass && p.pass.length > 0;
                 const lockIcon = hasPass ? ' <i class="fas fa-lock lock-icon"></i>' : '';
                 
-                btn.innerHTML = `<i>✦</i> ${p.name}${lockIcon}`;
+                btn.innerHTML = `
+                    <span class="icon">✦</span>
+                    ${p.name}${lockIcon}
+                    <span class="arrow">→</span>
+                `;
                 
                 btn.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -577,7 +667,7 @@
             isUnlocked = false;
             
             document.getElementById('modalTitle').textContent = project.name;
-            document.getElementById('modalSub').textContent = project.id;
+            document.getElementById('modalId').textContent = project.id;
             document.getElementById('modalDesc').textContent = project.description;
             
             const actionsDiv = document.getElementById('modalActions');
@@ -594,16 +684,15 @@
                 lockDiv.style.display = 'flex';
                 actionsDiv.innerHTML = `
                     <span class="modal-tag"><i class="fas fa-lock"></i> protegido</span>
-                    <p style="margin-top:8px;font-size:0.85rem;color:var(--purple);opacity:0.7;font-family:'Inconsolata',monospace;">
-                        ingresa la clave para acceder
-                    </p>
                 `;
             } else {
                 lockDiv.style.display = 'none';
                 actionsDiv.innerHTML = `
-                    <a href="${project.link}" target="_blank" class="modal-link">
-                        <i class="fas fa-arrow-right"></i> visitar
-                    </a>
+                    <div class="modal-actions">
+                        <a href="${project.link}" target="_blank" class="modal-link">
+                            visitar →
+                        </a>
+                    </div>
                 `;
             }
             
@@ -627,12 +716,14 @@
                 
                 const actionsDiv = document.getElementById('modalActions');
                 actionsDiv.innerHTML = `
-                    <a href="${currentProject.link}" target="_blank" class="modal-link">
-                        <i class="fas fa-arrow-right"></i> visitar
-                    </a>
-                    <span class="modal-tag" style="background:var(--green);color:var(--purple);border:1px solid var(--purple);">
-                        <i class="fas fa-check"></i> desbloqueado
-                    </span>
+                    <div class="modal-actions">
+                        <a href="${currentProject.link}" target="_blank" class="modal-link">
+                            visitar →
+                        </a>
+                        <span class="modal-tag" style="border-color:var(--text);">
+                            <i class="fas fa-check"></i> desbloqueado
+                        </span>
+                    </div>
                 `;
                 
                 document.getElementById('modalLock').style.display = 'none';
@@ -651,12 +742,10 @@
             isUnlocked = false;
         }
 
-        // Cerrar con ESC
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeModal();
         });
 
-        // Cerrar haciendo clic en el overlay
         document.getElementById('modalOverlay').addEventListener('click', function(e) {
             if (e.target === this) closeModal();
         });
@@ -671,9 +760,9 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         
-        const chars = "01✦ ☉☽☿🜂🜄🜍🜔🜕🜖🜗🜁🜤🜨♡♪♬♩♫☾☽☯☮✿❀❁✾♲♳♴♵♶♷Δ♸♹♺♻♼♽";
+        const chars = "01✦◈☉☽☿♡♪♬♩♫☾☽☯☮✿❀❁✾Δ";
         const charArray = chars.split("");
-        const fontSize = 16;
+        const fontSize = 18;
         const columns = canvas.width / fontSize;
         const drops = [];
         
@@ -682,11 +771,11 @@
         }
         
         function drawMatrix() {
-            ctx.fillStyle = "rgba(96, 39, 169, 0.05)";
+            ctx.fillStyle = "rgba(0,0,170,0.04)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            const colors = ['#ccffd2', '#ff69b4', '#ffffff'];
-            ctx.font = `bold ${fontSize}px 'Inconsolata'`;
+            const colors = ['#00ffff', '#ffffff', '#ff00ff'];
+            ctx.font = `bold ${fontSize}px 'VT323', 'Courier New', monospace`;
             
             for(let i = 0; i < drops.length; i++) {
                 const text = charArray[Math.floor(Math.random() * charArray.length)];
